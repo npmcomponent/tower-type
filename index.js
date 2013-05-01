@@ -38,12 +38,12 @@ collection.neq = function neq(a, b){
   return a !== b;
 }
 
-collection['in'] = function _in(a, b){
-  return indexof(a, b);
+collection.contains = collection['in'] = function contains(a, b){
+  return !!~indexof(b, a);
 }
 
 collection.nin = function nin(a, b){
-  return !indexof(a, b);
+  return !~indexof(b, a);
 }
 
 collection.gte = function gte(a, b){
