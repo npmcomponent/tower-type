@@ -44,6 +44,24 @@ var validate = type.validator('birthdate.can-drive');
 validate(Date.parse('1950-12-21')); // true
 ```
 
+Sanitize values:
+
+```js
+type('digit')
+  .use(stripWhitespace)
+  .use(stripLetters);
+
+type('digit').sanitize('  1  foo b2a3r'); // 123
+
+function stripWhitespace(val) {
+  return val.replace(/\s+/g, '');
+}
+
+function stripLetters(val) {
+  return val.replace(/[a-z]+/g, '');
+}
+```
+
 ## License
 
 MIT

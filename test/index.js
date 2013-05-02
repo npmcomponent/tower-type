@@ -25,6 +25,12 @@ describe('type', function(){
   });
 
   it('should sanitize value', function(){
+    type('digit')
+      .use(stripWhitespace)
+      .use(stripLetters);
+
+    assert('123' === type('digit').sanitize('  1  foo b2a3r'));
+    
     function stripWhitespace(val) {
       return val.replace(/\s+/g, '');
     }
@@ -32,11 +38,5 @@ describe('type', function(){
     function stripLetters(val) {
       return val.replace(/[a-z]+/g, '');
     }
-
-    type('digit')
-      .use(stripWhitespace)
-      .use(stripLetters);
-
-    assert('123' === type('digit').sanitize('  1  foo b2a3r'));
   });
 });
