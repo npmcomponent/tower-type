@@ -16,7 +16,7 @@ $ component install tower/type
 
 ## Example
 
-Define a custom type and validators/comparators.
+Define comparators/validators for basic types:
 
 ```js
 var type = require('tower-type');
@@ -28,7 +28,11 @@ type('string')
   .validator('gt', function gt(a, b){
     return a.length > b.length;
   });
+```
 
+Define a custom type with custom validators:
+
+```js
 var now = Date.parse('2013-05-01');
 
 type('birthdate')
