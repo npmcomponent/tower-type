@@ -47,11 +47,11 @@ validate(Date.parse('1950-12-21')); // true
 Sanitize values:
 
 ```js
-type('digit')
+type('digits')
   .use(stripWhitespace)
   .use(stripLetters);
 
-type('digit').sanitize('  1  foo b2a3r'); // 123
+type('digits').sanitize('  1  foo b2a3r'); // 123
 
 function stripWhitespace(val) {
   return val.replace(/\s+/g, '');

@@ -25,12 +25,12 @@ describe('type', function(){
   });
 
   it('should sanitize value', function(){
-    type('digit')
+    type('digits')
       .use(stripWhitespace)
       .use(stripLetters);
 
-    assert('123' === type('digit').sanitize('  1  foo b2a3r'));
-    
+    assert('123' === type('digits').sanitize('  1  foo b2a3r'));
+
     function stripWhitespace(val) {
       return val.replace(/\s+/g, '');
     }
