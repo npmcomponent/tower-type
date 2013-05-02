@@ -3,82 +3,104 @@
  * Module dependencies.
  */
 
-var indexof = require('indexof');
+var Emitter = require('tower-emitter')
+  , validator = require('tower-validator')
+  , types = require('./lib/types');
 
 /**
- * Expose `operator`.
+ * Expose `type`.
  */
 
-exports = module.exports = operator;
+exports = module.exports = type;
+
+/**
+ * Expose `Type`.
+ */
+
+exports.Type = Type;
 
 /**
  * Expose `collection`.
  */
 
-var collection = exports.collection = {};
+exports.collection = [];
 
 /**
- * Define or get an operator.
- *
- * XXX: Maybe these should each be broken down into
- *      uber-tiny `part/gte` modules.
+ * Expose `validator`.
  */
 
-function operator(key, fn) {
-  return 1 === arguments.length
-    ? collection[key]
-    : collection[key] = fn;
+exports.validator = validator.ns('type');
+
+/**
+ * Define or get a type.
+ */
+
+function type(name, fn) {
+  if (undefined === fn && exports.collection[name])
+      return exports.collection[name];
+
+  var instance = new Type(name, fn);
+  exports.collection[name] = instance;
+  exports.collection.push(instance);
+  exports.emit('define', name, instance);
+  return instance;
 }
 
-collection.eq = function eq(a, b){
-  return a === b;
+/**
+ * Mixin `Emitter`.
+ */
+
+Emitter(exports);
+
+/**
+ * Check if validator exists.
+ *
+ * @param {String} name
+ */
+
+exports.has = function(name){
+  return !!exports.collection[name];
 }
 
-collection.neq = function neq(a, b){
-  return a !== b;
+/**
+ * Scope validators to a namespace.
+ */
+
+exports.ns = function(ns){
+  return function type(name, fn) {
+    return exports(ns + '.' + name, fn);
+  }
 }
 
-collection.contains = collection['in'] = function contains(a, b){
-  return !!~indexof(b, a);
+/**
+ * Remove all validators.
+ */
+
+exports.clear = function(){
+  exports.off();
+  // XXX: instead of creating a new array,
+  // it should just set length to zero (and clear keys).
+  exports.collection = [];
+  return exports;
 }
 
-collection.nin = function nin(a, b){
-  return !~indexof(b, a);
+function Type(name, fn) {
+  // XXX: name or path? maybe both.
+  this.name = name;
+  // serialization/sanitization function.
+  if (fn) this.serializer = fn;
+  // XXX: or maybe just delegate:
+  // this.validator = type.validator.ns(name);
+  // that might reduce memory quite a bit.
+  // even though it's still only a tiny bit of it.
+  // this.validators = {};
 }
 
-collection.gte = function gte(a, b){
-  return a >= b;
+Type.prototype.validator = function(name, fn){
+  // XXX: see above, this should probably just
+  // be happening in `validator.ns(this.name)`.
+  validator(this.name + '.' + name, fn);
+  return this;
 }
 
-collection.gt = function gt(a, b){
-  return a > b;
-}
-
-collection.lte = function gte(a, b){
-  return a <= b;
-}
-
-collection.lt = function gt(a, b){
-  return a < b;
-}
-
-collection.match = function match(a, b){
-  return !!a.match(b);
-}
-
-// XXX: may move these out.
-collection['string.eq'] = function(a, b){
-  return 'string' === typeof a && a === b;
-}
-
-collection['string.gte'] = function(a, b){
-  return 'string' === typeof a && 'string'=== typeof b && a.length >= b.length;
-}
-
-collection['number.eq'] = function(a, b){
-  return 'number' === typeof a && a === b;
-}
-
-collection['number.gte'] = function(a, b){
-  return 'number' === typeof a && a >= b;
-}
+types(exports);

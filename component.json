@@ -1,10 +1,12 @@
 {
-  "name": "tower-operator",
-  "repo": "tower/operator",
-  "description": "Tower Operator component",
+  "name": "tower-type",
+  "repo": "tower/type",
+  "description": "Tower Type component",
   "version": "0.0.1",
   "dependencies": {
+    "tower/emitter": "*",
+    "tower/validator": "*"
   },
-  "scripts": ["index.js"],
+  "scripts": ["index.js", "lib/types.js"],
   "license": "MIT"
 }
