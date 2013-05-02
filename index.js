@@ -87,13 +87,13 @@ exports.clear = function(){
 function Type(name, fn) {
   // XXX: name or path? maybe both.
   this.name = name;
-  // serialization/sanitization function.
-  if (fn) this.serializer = fn;
   // XXX: or maybe just delegate:
   // this.validator = type.validator.ns(name);
   // that might reduce memory quite a bit.
   // even though it's still only a tiny bit of it.
   this.validators = [];
+  // serialization/sanitization function.
+  if (fn) this.use(fn);
 }
 
 Type.prototype.validator = function(name, fn){
@@ -102,6 +102,32 @@ Type.prototype.validator = function(name, fn){
   exports.validator(this.name + '.' + name, fn);
   this.validators.push(this.validators[name] = fn);
   return this;
+}
+
+/**
+ * Sanitize functions to pass value through.
+ *
+ * @param {Function} fn
+ * @return {Type} this
+ */
+
+Type.prototype.use = function(fn){
+  (this.sanitizers || (this.sanitizers = [])).push(fn);
+  return this;
+}
+
+/**
+ * Sanitize (or maybe `serialize`).
+ */
+
+Type.prototype.sanitize = function(val){
+  if (!this.sanitizers) return val;
+
+  this.sanitizers.forEach(function sanitize(sanitizer){
+    val = sanitizer(val);
+  });
+
+  return val;
 }
 
 types(exports);

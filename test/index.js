@@ -23,4 +23,20 @@ describe('type', function(){
   it('should have default validators for native types', function(){
     assert(2 === type('string').validators.length);
   });
+
+  it('should sanitize value', function(){
+    function stripWhitespace(val) {
+      return val.replace(/\s+/g, '');
+    }
+
+    function stripLetters(val) {
+      return val.replace(/[a-z]+/g, '');
+    }
+
+    type('digit')
+      .use(stripWhitespace)
+      .use(stripLetters);
+
+    assert('123' === type('digit').sanitize('  1  foo b2a3r'));
+  });
 });
