@@ -93,13 +93,14 @@ function Type(name, fn) {
   // this.validator = type.validator.ns(name);
   // that might reduce memory quite a bit.
   // even though it's still only a tiny bit of it.
-  // this.validators = {};
+  this.validators = [];
 }
 
 Type.prototype.validator = function(name, fn){
   // XXX: see above, this should probably just
   // be happening in `validator.ns(this.name)`.
-  validator(this.name + '.' + name, fn);
+  exports.validator(this.name + '.' + name, fn);
+  this.validators.push(this.validators[name] = fn);
   return this;
 }
 
