@@ -1,29 +1,33 @@
-# Tower Operator
+# Tower Type
 
 ## Installation
 
 node.js:
 
 ```bash
-$ npm install tower-operator
+$ npm install tower-type
 ```
 
 browser:
 
 ```bash
-$ component install tower/operator
+$ component install tower/type
 ```
 
 ## Example
 
-Use an operator.
+Define a custom type and validators/comparators.
 
 ```js
-var operator = require('tower-operator');
+var type = require('tower-type');
 
-var gte = operator('gte');
-
-assert(true === gte(10, 5)); // 10 >= 5
+type('string')
+  .validator('gte', function gte(a, b){
+    return a.length >= b.length;
+  })
+  .validator('gt', function gt(a, b){
+    return a.length > b.length;
+  });
 ```
 
 ## License
