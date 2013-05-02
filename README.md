@@ -28,6 +28,13 @@ type('string')
   .validator('gt', function gt(a, b){
     return a.length > b.length;
   });
+
+var now = Date.parse('2013-05-01');
+
+type('birthdate')
+  .validator('can-drive', function(val){
+    return Date.parse('1950-12-21') >= val;
+  });
 ```
 
 ## License

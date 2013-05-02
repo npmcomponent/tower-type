@@ -4,7 +4,7 @@ var type = require('..')
 
 describe('type', function(){
   it('should define validators for type', function(){
-    var birthdate = Date.parse('1986-10-03')
+    var birthdate = Date.parse('1950-12-21')
       , now = Date.parse('2013-05-01')
       , calls = [];
 
