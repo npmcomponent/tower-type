@@ -37,8 +37,11 @@ var now = Date.parse('2013-05-01');
 
 type('birthdate')
   .validator('can-drive', function(val){
-    return Date.parse('1950-12-21') >= val;
+    return now >= val;
   });
+
+var validate = type.validator('birthdate.can-drive');
+validate(Date.parse('1950-12-21')); // true
 ```
 
 ## License
