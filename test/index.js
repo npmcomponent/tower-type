@@ -19,4 +19,8 @@ describe('type', function(){
     assert(1 === calls.length);
     assert('birthdate.can-drive' === calls[0]);
   });
+
+  it('should have default validators for native types', function(){
+    assert(2 === type('string').validators.length);
+  });
 });
