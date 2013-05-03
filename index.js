@@ -132,4 +132,15 @@ Type.prototype.sanitize = function(val){
   return val;
 }
 
+// XXX: not sure the best way for this yet. ideas?
+Type.prototype.to = function(fn){
+  this.serialize = fn;
+  return this;
+}
+
+Type.prototype.from = function(fn){
+  this.deserialize = fn;
+  return this;
+}
+
 types(exports);
