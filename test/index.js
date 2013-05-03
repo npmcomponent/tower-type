@@ -1,7 +1,8 @@
 var type = 'undefined' == typeof window
     ? require('..')
     : require('tower-type')
-  , validator = type.validator
+
+var validator = type.validator
   , assert = require('assert');
 
 describe('type', function(){
@@ -46,11 +47,11 @@ describe('type', function(){
     assert.deepEqual([ 'a', 'b' ], type('array').sanitize('a,b'));
     assert.deepEqual([ 'a', 'b' ], type('array').sanitize('a, b'));
     assert.deepEqual([ 'a b' ], type('array').sanitize('a b'));
-    assert.deepEqual([ 'a', 'b' ], type('array').sanitize(['a', 'b']));
+    assert.deepEqual([ 'a', 'b' ], type('array').sanitize([ 'a', 'b' ]));
   });
 
   describe('clear function', function(){
-    it('should turn off define event listener', function() {
+    it('should turn off define event listener', function(){
       type.on('define', function(){});
       assert(true === type.hasListeners('define'));
       type.clear();
