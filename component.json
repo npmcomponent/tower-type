@@ -5,7 +5,8 @@
   "version": "0.0.1",
   "dependencies": {
     "tower/emitter": "*",
-    "tower/validator": "*"
+    "tower/validator": "*",
+    "part/is-array": "*"
   },
   "scripts": ["index.js", "lib/types.js"],
   "license": "MIT"

@@ -39,4 +39,11 @@ describe('type', function(){
       return val.replace(/[a-z]+/g, '');
     }
   });
+
+  it('should typecast array', function(){
+    assert.deepEqual([ 'a', 'b' ], type('array').sanitize('a,b'));
+    assert.deepEqual([ 'a', 'b' ], type('array').sanitize('a, b'));
+    assert.deepEqual([ 'a b' ], type('array').sanitize('a b'));
+    assert.deepEqual([ 'a', 'b' ], type('array').sanitize(['a', 'b']));
+  });
 });

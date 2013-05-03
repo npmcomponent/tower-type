@@ -118,6 +118,8 @@ Type.prototype.use = function(fn){
 
 /**
  * Sanitize (or maybe `serialize`).
+ *
+ * XXX: maybe rename to `cast`?
  */
 
 Type.prototype.sanitize = function(val){
