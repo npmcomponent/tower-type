@@ -8,6 +8,14 @@
     "tower/validator": "*",
     "part/is-array": "*"
   },
+  "local": [],
+  "paths": [
+    "../"
+  ],
+  "development": {
+    "timoxley/assert": "*",
+    "visionmedia/mocha": "*"
+  },
   "scripts": ["index.js", "lib/types.js"],
   "license": "MIT"
 }
