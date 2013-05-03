@@ -1,4 +1,6 @@
-var type = require('..')
+var type = 'undefined' == typeof window
+    ? require('..')
+    : require('tower-type')
   , validator = type.validator
   , assert = require('assert');
 
@@ -45,5 +47,22 @@ describe('type', function(){
     assert.deepEqual([ 'a', 'b' ], type('array').sanitize('a, b'));
     assert.deepEqual([ 'a b' ], type('array').sanitize('a b'));
     assert.deepEqual([ 'a', 'b' ], type('array').sanitize(['a', 'b']));
+  });
+
+  describe('clear function', function(){
+    it('should turn off define event listener', function() {
+      type.on('define', function(){});
+      assert(true === type.hasListeners('define'));
+      type.clear();
+      assert(false === type.hasListeners('define'));
+    });
+
+    it('should clear collection object', function(){
+      type('random');
+      assert(0 < type.collection.length);
+      type.clear();
+      assert(0 === type.collection.length);
+      assert(false === !!type.collection['random']);
+    });
   });
 });
