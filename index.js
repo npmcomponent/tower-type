@@ -137,14 +137,31 @@ Type.prototype.sanitize = function(val){
   return val;
 }
 
-// XXX: not sure the best way for this yet. ideas?
+/**
+ * Seralizer object by name.
+ *
+ * XXX: Maybe refactor into `tower/serializer` module.
+ *
+ * @param {String} name
+ */
+
+Type.prototype.serializer = function(name){
+  this.context = (this.serializers || (this.serializers = {}))[name] = {};
+  return this;
+}
+
+/**
+ * Define how to serialize type to 
+ * external API/service request format.
+ */
+
 Type.prototype.to = function(fn){
-  this.serialize = fn;
+  this.context.to = fn;
   return this;
 }
 
 Type.prototype.from = function(fn){
-  this.deserialize = fn;
+  this.context.from = fn;
   return this;
 }
 

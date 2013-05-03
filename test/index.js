@@ -51,6 +51,27 @@ describe('type', function(){
     assert.deepEqual([ 'a', 'b' ], type('array').sanitize([ 'a', 'b' ]));
   });
 
+  it('should define serializers', function(){
+    type('ec2.array')
+      .serializer('basic')
+        // XXX: maybe need all these params
+        //      b/c some params may be expanded into
+        //      several.
+        //      Also, the arguments are customizable,
+        //      since for now at least you manually iterate
+        //      through serializers and pass arguments.
+        .to(function(self, params, name, val){
+          return 'to value';
+        })
+        .from(function(self, val){
+          return 'from value';
+        });
+
+    var serializer = type('ec2.array').serializers['basic'];
+    assert('to value' === serializer.to());
+    assert('from value' === serializer.from());
+  });
+
   describe('clear function', function(){
     it('should turn off define event listener', function(){
       type.on('define', function(){});
