@@ -151,14 +151,27 @@ Type.prototype.serializer = function(name){
 }
 
 /**
- * Define how to serialize type to 
- * external API/service request format.
+ * Define how to serialize type from
+ * JavaScript to external API/service request format.
+ *
+ * XXX: to/out/request/serialize/format/use
+ *
+ * @param {Function} fn
  */
 
 Type.prototype.to = function(fn){
   this.context.to = fn;
   return this;
 }
+
+/**
+ * Define how to deserialize type from 
+ * external API/service request format to JavaScript.
+ *
+ * XXX: from/in/response/deserialize
+ *
+ * @param {Function} fn
+ */
 
 Type.prototype.from = function(fn){
   this.context.from = fn;
