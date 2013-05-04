@@ -160,6 +160,8 @@ Type.prototype.serializer = function(name){
  */
 
 Type.prototype.to = function(fn){
+  // XXX: some way to set a default serializer.
+  if (!this.context) this.serializer('default');
   this.context.to = fn;
   return this;
 }
@@ -174,8 +176,19 @@ Type.prototype.to = function(fn){
  */
 
 Type.prototype.from = function(fn){
+  if (!this.context) this.serializer('default');
   this.context.from = fn;
   return this;
+}
+
+/**
+ * Bring back to parent context.
+ *
+ * XXX: need more robust way to do this across modules.
+ */
+
+Type.prototype.type = function(name){
+
 }
 
 types(exports);
