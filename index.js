@@ -60,7 +60,7 @@ Emitter(exports);
 
 exports.has = function(name){
   return !!exports.collection[name];
-}
+};
 
 /**
  * Scope validators to a namespace.
@@ -70,7 +70,7 @@ exports.ns = function(ns){
   return function type(name, fn) {
     return exports(ns + '.' + name, fn);
   }
-}
+};
 
 /**
  * Remove all validators.
@@ -87,7 +87,7 @@ exports.clear = function(){
   }
   collection.length = 0;
   return exports;
-}
+};
 
 function Type(name, fn) {
   // XXX: name or path? maybe both.
@@ -107,7 +107,7 @@ Type.prototype.validator = function(name, fn){
   exports.validator(this.name + '.' + name, fn);
   this.validators.push(this.validators[name] = fn);
   return this;
-}
+};
 
 /**
  * Sanitize functions to pass value through.
@@ -119,7 +119,7 @@ Type.prototype.validator = function(name, fn){
 Type.prototype.use = function(fn){
   (this.sanitizers || (this.sanitizers = [])).push(fn);
   return this;
-}
+};
 
 /**
  * Sanitize (or maybe `serialize`).
@@ -135,7 +135,7 @@ Type.prototype.sanitize = function(val){
   });
 
   return val;
-}
+};
 
 /**
  * Seralizer object by name.
@@ -148,7 +148,7 @@ Type.prototype.sanitize = function(val){
 Type.prototype.serializer = function(name){
   this.context = (this.serializers || (this.serializers = {}))[name] = {};
   return this;
-}
+};
 
 /**
  * Define how to serialize type from
@@ -164,7 +164,7 @@ Type.prototype.to = function(fn){
   if (!this.context) this.serializer('default');
   this.context.to = fn;
   return this;
-}
+};
 
 /**
  * Define how to deserialize type from 
@@ -179,7 +179,7 @@ Type.prototype.from = function(fn){
   if (!this.context) this.serializer('default');
   this.context.from = fn;
   return this;
-}
+};
 
 /**
  * Bring back to parent context.
@@ -189,6 +189,6 @@ Type.prototype.from = function(fn){
 
 Type.prototype.type = function(name){
 
-}
+};
 
 types(exports);
