@@ -3,9 +3,9 @@
  * Module dependencies.
  */
 
-var Emitter = require('tower-emitter')
-  , validator = require('tower-validator')
-  , types = require('./lib/types');
+var Emitter = require('tower-emitter');
+var validator = require('tower-validator');
+var types = require('./lib/types');
 
 /**
  * Expose `type`.
