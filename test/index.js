@@ -1,15 +1,19 @@
-var type = 'undefined' == typeof window
-    ? require('..')
-    : require('tower-type')
 
-var validator = type.validator
-  , assert = require('assert');
+if ('undefined' === typeof window) {
+  var type = require('..');
+  var assert = require('assert');
+} else {
+  var type = require('tower-type');
+  var assert = require('timoxley-assert');
+}
+
+var validator = type.validator;
 
 describe('type', function(){
   it('should define validators for type', function(){
-    var birthdate = Date.parse('1950-12-21')
-      , now = Date.parse('2013-05-01')
-      , calls = [];
+    var birthdate = Date.parse('1950-12-21');
+    var now = Date.parse('2013-05-01');
+    var calls = [];
 
     type('birthdate')
       .validator('can-drive', function(val){
