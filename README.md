@@ -1,5 +1,7 @@
 # Tower Type
 
+API for defining/sanitizing custom resource attribute types.
+
 ## Installation
 
 node.js:
