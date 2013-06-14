@@ -33,6 +33,10 @@ exports.validator = validator.ns('type');
 
 /**
  * Define or get a type.
+ *
+ * @param {String} name Type name.
+ * @param {Function} fn A function added to a list of sanitizors that sanitizes the type.
+ * @return {Type} A type.
  */
 
 function type(name, fn) {
@@ -55,7 +59,8 @@ Emitter(exports);
 /**
  * Check if validator exists.
  *
- * @param {String} name
+ * @param {String} name Type name.
+ * @return {Boolean} true if `Type` exists, else false.
  */
 
 exports.has = function(name){
@@ -64,6 +69,9 @@ exports.has = function(name){
 
 /**
  * Scope validators to a namespace.
+ *
+ * @param {String} ns A namespace
+ * @return {Function} A function that returns a namespaced exports object.
  */
 
 exports.ns = function(ns){
@@ -74,6 +82,8 @@ exports.ns = function(ns){
 
 /**
  * Remove all validators.
+ *
+ * @return {Function} Module exports `type` function.
  */
 
 exports.clear = function(){
@@ -89,6 +99,14 @@ exports.clear = function(){
   return exports;
 };
 
+/**
+ * Class representing a type.
+ *
+ * @class
+ * @param {String} name A type name.
+ * @param {Function} fn A function added to a list of sanitizors that sanitizes the type.
+ */
+
 function Type(name, fn) {
   // XXX: name or path? maybe both.
   this.name = name;
@@ -101,6 +119,15 @@ function Type(name, fn) {
   if (fn) this.use(fn);
 }
 
+/**
+ * Add a validator function to a type.
+ *
+ * @chainable
+ * @param {String} A validator name
+ * @param {Function} fn A validator function.
+ * @returns {Type} this.
+ */
+
 Type.prototype.validator = function(name, fn){
   // XXX: see above, this should probably just
   // be happening in `validator.ns(this.name)`.
@@ -112,8 +139,9 @@ Type.prototype.validator = function(name, fn){
 /**
  * Sanitize functions to pass value through.
  *
- * @param {Function} fn
- * @return {Type} this
+ * @chainable
+ * @param {Function} fn A sanitizor function.
+ * @return {Type} this.
  */
 
 Type.prototype.use = function(fn){
@@ -125,6 +153,9 @@ Type.prototype.use = function(fn){
  * Sanitize (or maybe `serialize`).
  *
  * XXX: maybe rename to `cast`?
+ *
+ * @param {Mixed} val A value to sanitize.
+ * @return {Mixed} The value sanitized.
  */
 
 Type.prototype.sanitize = function(val){
@@ -142,7 +173,9 @@ Type.prototype.sanitize = function(val){
  *
  * XXX: Maybe refactor into `tower/serializer` module.
  *
- * @param {String} name
+ * @chainable
+ * @param {String} name Object name.
+ * @return {Type} this.
  */
 
 Type.prototype.serializer = function(name){
@@ -156,7 +189,9 @@ Type.prototype.serializer = function(name){
  *
  * XXX: to/out/request/serialize/format/use
  *
- * @param {Function} fn
+ * @chainable
+ * @param {Function} fn Function to handle serialization.
+ * @return {Type} this.
  */
 
 Type.prototype.to = function(fn){
@@ -172,7 +207,9 @@ Type.prototype.to = function(fn){
  *
  * XXX: from/in/response/deserialize
  *
- * @param {Function} fn
+ * @chainable
+ * @param {Function} fn Function to handle deserialization.
+ * @return {Type} this.
  */
 
 Type.prototype.from = function(fn){
@@ -185,6 +222,8 @@ Type.prototype.from = function(fn){
  * Bring back to parent context.
  *
  * XXX: need more robust way to do this across modules.
+ *
+ * @param {String} A type name.
  */
 
 Type.prototype.type = function(name){
