@@ -35,8 +35,9 @@ exports.validator = validator.ns('type');
  * Define or get a type.
  *
  * @param {String} name Type name.
- * @param {Function} fn A function added to a list of sanitizors that sanitizes the type.
- * @return {Type} A type.
+ * @param {Function} fn A function added to a list of sanitizers that sanitizes the type.
+ * @return {Type} A type instance.
+ * @api public
  */
 
 function type(name, fn) {
@@ -61,6 +62,7 @@ Emitter(exports);
  *
  * @param {String} name Type name.
  * @return {Boolean} true if `Type` exists, else false.
+ * @api public
  */
 
 exports.has = function(name){
@@ -72,6 +74,7 @@ exports.has = function(name){
  *
  * @param {String} ns A namespace
  * @return {Function} A function that returns a namespaced exports object.
+ * @api public
  */
 
 exports.ns = function(ns){
@@ -83,7 +86,9 @@ exports.ns = function(ns){
 /**
  * Remove all validators.
  *
- * @return {Function} Module exports `type` function.
+ * @chainable
+ * @return {Function} exports The main `type` function.
+ * @api public
  */
 
 exports.clear = function(){
@@ -104,7 +109,8 @@ exports.clear = function(){
  *
  * @class
  * @param {String} name A type name.
- * @param {Function} fn A function added to a list of sanitizors that sanitizes the type.
+ * @param {Function} fn A function added to a list of sanitizers that sanitizes the type.
+ * @api public
  */
 
 function Type(name, fn) {
@@ -123,9 +129,10 @@ function Type(name, fn) {
  * Add a validator function to a type.
  *
  * @chainable
- * @param {String} A validator name
+ * @param {String} A validator name.
  * @param {Function} fn A validator function.
- * @returns {Type} this.
+ * @returns {Type}.
+ * @api public
  */
 
 Type.prototype.validator = function(name, fn){
@@ -141,7 +148,8 @@ Type.prototype.validator = function(name, fn){
  *
  * @chainable
  * @param {Function} fn A sanitizor function.
- * @return {Type} this.
+ * @return {Type}
+ * @api public
  */
 
 Type.prototype.use = function(fn){
@@ -156,6 +164,7 @@ Type.prototype.use = function(fn){
  *
  * @param {Mixed} val A value to sanitize.
  * @return {Mixed} The value sanitized.
+ * @api public
  */
 
 Type.prototype.sanitize = function(val){
@@ -175,7 +184,8 @@ Type.prototype.sanitize = function(val){
  *
  * @chainable
  * @param {String} name Object name.
- * @return {Type} this.
+ * @return {Type}
+ * @api public
  */
 
 Type.prototype.serializer = function(name){
@@ -191,7 +201,8 @@ Type.prototype.serializer = function(name){
  *
  * @chainable
  * @param {Function} fn Function to handle serialization.
- * @return {Type} this.
+ * @return {Type}
+ * @api public
  */
 
 Type.prototype.to = function(fn){
@@ -209,7 +220,8 @@ Type.prototype.to = function(fn){
  *
  * @chainable
  * @param {Function} fn Function to handle deserialization.
- * @return {Type} this.
+ * @return {Type}
+ * @api public
  */
 
 Type.prototype.from = function(fn){
