@@ -129,7 +129,7 @@ function Type(name, fn) {
  * Add a validator function to a type.
  *
  * @chainable
- * @param {String} A validator name.
+ * @param {String} name A validator name.
  * @param {Function} fn A validator function.
  * @returns {Type}.
  * @api public
@@ -235,7 +235,7 @@ Type.prototype.from = function(fn){
  *
  * XXX: need more robust way to do this across modules.
  *
- * @param {String} A type name.
+ * @param {String} name A type name.
  */
 
 Type.prototype.type = function(name){
