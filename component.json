@@ -2,10 +2,10 @@
   "name": "tower-type",
   "repo": "tower/type",
   "description": "Tower Type component",
-  "version": "0.1.0pre",
+  "version": "0.1.0",
   "dependencies": {
-    "tower/emitter": "*",
-    "tower/validator": "*",
+    "tower/emitter": "0.1.0",
+    "tower/validator": "0.1.0",
     "part/is-array": "*"
   },
   "development": {
