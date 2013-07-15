@@ -167,11 +167,11 @@ Type.prototype.use = function(fn){
  * @api public
  */
 
-Type.prototype.sanitize = function(val){
+Type.prototype.sanitize = function(val, obj){
   if (!this.sanitizers) return val;
 
   this.sanitizers.forEach(function sanitize(sanitizer){
-    val = sanitizer(val);
+    val = sanitizer(val, obj);
   });
 
   return val;
