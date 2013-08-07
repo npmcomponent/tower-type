@@ -170,9 +170,9 @@ Type.prototype.use = function(fn){
 Type.prototype.sanitize = function(val, obj){
   if (!this.sanitizers) return val;
 
-  this.sanitizers.forEach(function sanitize(sanitizer){
-    val = sanitizer(val, obj);
-  });
+  for (var i = 0, n = this.sanitizers.length; i < n; i++) {
+    val = this.sanitizers[i](val, obj);
+  }
 
   return val;
 };
