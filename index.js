@@ -65,8 +65,8 @@ Emitter(exports);
  * @api public
  */
 
-exports.has = function(name){
-  return !!exports.collection[name];
+exports.defined = function(name){
+  return exports.collection.hasOwnProperty(name);
 };
 
 /**
