@@ -1,14 +1,11 @@
 {
   "name": "tower-type",
-  "version": "0.1.0",
-  "main": "./index.js",
+  "description": "Tower Type component",
+  "version": "0.1.5",
   "dependencies": {
-    "tower-emitter": "~0.1.0",
-    "tower-validator": "~0.1.0",
-    "part-is-array": "*"
+    "tower-emitter": "git://github.com/npmcomponent/tower-emitter.git",
+    "tower-validator": "git://github.com/npmcomponent/tower-validator.git",
+    "part-is-array": "git://github.com/npmcomponent/part-is-array.git"
   },
-  "repository": {
-    "type" : "git",
-    "url" : "http://github.com/tower/type.git"
-  }
+  "license": "MIT"
 }
